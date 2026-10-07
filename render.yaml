@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: afaan-social
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 24.21.0
+      - key: DATABASE_URL
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ADMIN_PHONE
+        value: "0920689815"
+      - key: ADMIN_VIP_USERNAME
+        value: "@kalifa"
