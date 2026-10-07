@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="om">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Afaan Social</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header>
+  <div class="brand">Afaan<span>Social</span></div>
+  <nav>
+    <button onclick="show('home')">Home</button>
+    <button onclick="show('people')">People</button>
+    <button onclick="show('messages')">Chat</button>
+    <button onclick="show('profile')">Profile</button>
+    <button onclick="show('vip')">VIP</button>
+    <button id="adminBtn" onclick="show('admin')" hidden>Admin</button>
+    <button onclick="logout()">Logout</button>
+  </nav>
+</header>
+
+<main>
+<section id="auth" class="card auth">
+  <div class="tabs"><button onclick="authMode('login')">Login</button><button onclick="authMode('signup')">Signup</button></div>
+  <form id="authForm">
+    <input id="username" placeholder="Username" required>
+    <input id="password" type="password" placeholder="Password" required>
+    <div id="signupFields" hidden>
+      <input id="full_name" placeholder="Full name">
+      <input id="phone" placeholder="Phone">
+      <textarea id="bio" placeholder="Short bio"></textarea>
+    </div>
+    <button class="primary" id="authSubmit">Login</button>
+  </form>
+  <p id="authMsg" class="msg"></p>
+</section>
+
+<section id="app" hidden>
+  <div id="home" class="page">
+    <div class="card composer">
+      <h2>Create post</h2>
+      <textarea id="postBody" placeholder="What's on your mind?"></textarea>
+      <input id="mediaUrl" placeholder="Optional media URL (image/video/audio)">
+      <select id="mediaType"><option value="">No media</option><option>image</option><option>video</option><option>audio</option></select>
+      <button class="primary" onclick="createPost()">Post</button>
+      <small>Your post will appear publicly after review.</small>
+    </div>
+    <div id="feed"></div>
+  </div>
+
+  <div id="people" class="page" hidden>
+    <div class="card"><h2>Find people</h2><input id="peopleSearch" placeholder="Search username/name" oninput="loadPeople()"></div>
+    <div id="peopleList"></div>
+    <div class="card"><h3>Friend requests</h3><div id="requests"></div></div>
+  </div>
+
+  <div id="messages" class="page" hidden>
+    <div class="card"><h2>Chat</h2><input id="chatUser" placeholder="Receiver user ID"><button onclick="loadChat()">Open</button></div>
+    <div id="chatBox" class="card"></div>
+    <div class="card"><input id="chatText" placeholder="Message"><button class="primary" onclick="sendChat()">Send</button></div>
+  </div>
+
+  <div id="profile" class="page" hidden>
+    <div class="card"><h2>Edit profile</h2>
+      <input id="pFullName"><input id="pPhone"><input id="pAvatar" placeholder="Avatar URL">
+      <textarea id="pBio"></textarea><button class="primary" onclick="saveProfile()">Save</button>
+    </div>
+  </div>
+
+  <div id="vip" class="page" hidden>
+    <div class="card vip"><h2>⭐ VIP</h2><p>VIP bitachuuf admin qunnami.</p><h3 id="vipPhone"></h3><h3 id="vipUser"></h3><button class="primary" onclick="vipRequest()">VIP Request</button><p id="vipMsg"></p></div>
+  </div>
+
+  <div id="admin" class="page" hidden>
+    <div class="card"><h2>Admin Dashboard</h2><button onclick="loadAdmin()">Refresh</button></div>
+    <div class="card"><h3>Pending posts</h3><div id="pending"></div></div>
+    <div class="card"><h3>Users</h3><div id="adminUsers"></div></div>
+  </div>
+</section>
+</main>
+
+<div id="toast"></div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
